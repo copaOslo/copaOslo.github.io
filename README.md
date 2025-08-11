@@ -1,1 +1,1 @@
-# copaOslo.github.io
+# Homepage for Copa Bartenders
