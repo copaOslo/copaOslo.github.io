@@ -1,26 +1,24 @@
-document.addEventListener("DOMContentLoaded", () => {
-  // Loader animation
-  const loader = document.getElementById("loader");
-  setTimeout(() => {
-    loader.style.display = "none";
-  }, 1500); // hide after 1.5 seconds
+/* ---------- Loader handling ----------
+   Show the loader until the martini GIF finishes.
+   Since GIFs don't emit "ended" events, we use a configurable duration.
+   Set the GIF's total length (ms) in the <img data-duration-ms="..."> attribute.
+-------------------------------------- */
 
-  // Instagram fetch (embed workaround)
-  fetch("https://www.instagram.com/copabartenders_oslo/?__a=1&__d=dis")
-    .then(response => response.json())
-    .then(data => {
-      const container = document.querySelector(".insta-grid");
-      const posts = data.graphql.user.edge_owner_to_timeline_media.edges;
-      posts.slice(0, 6).forEach(post => {
-        const img = document.createElement("img");
-        img.src = post.node.thumbnail_src;
-        img.alt = "Instagram post";
-        container.appendChild(img);
-      });
-    })
-    .catch(err => {
-      console.error("Error loading Instagram posts", err);
-      document.querySelector(".insta-grid").innerHTML =
-        "<p>Unable to load Instagram posts right now.</p>";
-    });
-});
+(function () {
+  const loader = document.getElementById('loader');
+  const gif = document.getElementById('loaderGif');
+
+  const duration = Number(gif?.dataset?.durationMs || 3500); // fallback 3.5s
+
+  // In case the GIF needs to be reloaded (e.g., cache), force restart:
+  gif.addEventListener('load', () => {
+    setTimeout(() => {
+      loader.style.opacity = '0';
+      loader.style.pointerEvents = 'none';
+      loader.setAttribute('aria-busy', 'false');
+      setTimeout(() => loader.remove(), 450); // allow fade-out
+    }, duration);
+  });
+
+  // Trigger load if already cached
+  if (gif.complete) gif.dispatchEvent(new Event
