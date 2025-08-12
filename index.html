@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="no">
+
 <head>
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -8,19 +9,14 @@
   <link rel="preload" href="img/copa_logo.png" as="image">
   <link rel="preload" href="img/copa_banner.png" as="image">
   <link rel="stylesheet" href="style.css" />
-  <!-- Instafeed (lightweight, vanilla) -->
-  <script src="https://cdn.jsdelivr.net/npm/instafeed.js@2/dist/instafeed.min.js" defer></script>
   <script src="script.js" defer></script>
 </head>
+
 <body>
 
   <!-- LOADER (shows until GIF finishes) -->
   <div id="loader" class="loader" aria-live="polite" aria-busy="true">
-    <img
-      id="loaderGif"
-      src="img/loading.gif"
-      alt="Fyller martini ..."
-      data-duration-ms="4000" />
+    <img id="loaderGif" src="img/loading.gif" alt="Fyller martini ..." data-duration-ms="3500" />
     <p class="loader__label">Blander magien …</p>
   </div>
 
@@ -31,43 +27,68 @@
       <h1 class="hero__tagline">VI LAGER DRINKENE, <span>DERE LAGER MINNENE</span></h1>
 
       <div class="hero__cta">
-        <a class="btn btn--primary" href="mailto:booking.copaoslo@gmail.com">Book via e-post</a>
-        <a class="btn btn--ghost" href="https://www.instagram.com/copabartenders_oslo/" target="_blank" rel="noopener">Følg oss på Instagram</a>
+        <a id="contactBtn" class="btn btn--primary" href="#">Book via e-post</a>
+        <a class="btn btn--ghost" href="https://www.instagram.com/copabartenders_oslo/" target="_blank"
+          rel="noopener">Følg oss på Instagram</a>
       </div>
     </div>
 
     <img class="hero__banner" src="img/copa_banner.png" alt="Copa Bartenders banner">
   </header>
 
-  <!-- ABOUT / SERVICES -->
-  <section class="about container" id="om-oss">
-    <h2>Skreddersydd cocktail-opplevelse</h2>
-    <p>
-      Vi kommer til dere med bar, bartendere og signaturdrinker. Dere tar med gjestene —
-      sammen lager vi minnene. Perfekt for firmafester, bryllup og events.
-    </p>
-  </section>
+  <div id="bookingNotice" class="booking-notice" hidden>
+    Din booking er sendt! Vi vil kontakte deg så snart vi kan.
+  </div>
+  <div id="contactModal" class="contact-modal" hidden>
+    <div class="contact-overlay"></div>
+    <div class="contact-content">
+      <button id="closeContact" class="contact-close" aria-label="Lukk">×</button>
+      <h2>Book Copa Bartenders</h2>
+      <form id="bookingForm">
+        <label>
+          Navn *
+          <input type="text" name="name" required>
+        </label>
+        <label>
+          Epost *
+          <input type="email" name="email" required>
+        </label>
+        <label>
+          Type drinker *
+          <select name="drinks" required>
+            <option value="">Velg type</option>
+            <option value="Cocktail">Cocktail</option>
+            <option value="Mocktail">Mocktail</option>
+            <option value="Both">Begge</option>
+          </select>
+        </label>
+        <label>
+          Antall gjester *
+          <input type="number" name="guests" min="1" required>
+        </label>
+        <label>
+          Tilleggsinformasjon (optional)
+          <textarea name="moreinfo" rows="4"></textarea>
+        </label>
+        <button type="submit" class="btn btn--primary">Send booking</button>
+      </form>
+    </div>
+  </div>
 
   <!-- INSTAGRAM FEED -->
   <section class="instagram container" id="instagram">
-    <div class="section-head">
-      <h2>På bar bak kulissene</h2>
-      <a class="link" href="https://www.instagram.com/copabartenders_oslo/" target="_blank" rel="noopener">@copabartenders_oslo</a>
+    <div class="ig-slider" id="ig-slider" aria-live="polite">
+      <div class="ig-track" id="ig-track"></div>
+      <button class="ig-nav ig-prev" aria-label="Forrige" id="ig-prev">‹</button>
+      <button class="ig-nav ig-next" aria-label="Neste" id="ig-next">›</button>
+      <div class="ig-dots" id="ig-dots" aria-hidden="true"></div>
     </div>
 
-    <!-- Grid gets filled by Instafeed -->
-    <div id="ig-feed" class="ig-grid" aria-live="polite"></div>
-
-    <!-- Fallback if API not configured -->
-    <noscript>
-      <p>Se bildene våre på
-        <a href="https://www.instagram.com/copabartenders_oslo/" target="_blank" rel="noopener">Instagram</a>.
-      </p>
-    </noscript>
-    <div id="ig-fallback" class="ig-fallback" hidden>
-      <p>Kunne ikke laste feed akkurat nå. Se oss på
-        <a href="https://www.instagram.com/copabartenders_oslo/" target="_blank" rel="noopener">Instagram</a>.
-      </p>
+    <div id="ig-error" class="ig-fallback" hidden>
+      Kunne ikke laste feed akkurat nå. Se oss på
+      <a class="link" target="_blank" rel="noopener" href="https://www.instagram.com/copabartenders_oslo/">
+        Instagram
+      </a>.
     </div>
   </section>
 
@@ -79,4 +100,5 @@
     </div>
   </footer>
 </body>
+
 </html>
