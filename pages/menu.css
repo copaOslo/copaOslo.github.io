@@ -1,0 +1,128 @@
+/* Page-specific styles for the menu page */
+body {
+    background: #000; /* pure black background */
+    color: #fff; /* default white text */
+}
+
+/* Menu titles */
+.menu-title {
+    font-size: 2rem;
+    color: #fff; /* white main title for contrast */
+    font-weight: 900;
+    margin-bottom: 0.5rem;
+}
+
+.menu-subtitle {
+    color: #ccc; /* lighter grey subtitle */
+    font-size: 1rem;
+}
+
+/* Featured drinks */
+.feature-drinks {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-block: 1.5rem 2rem;
+}
+
+@media (min-width: 700px) {
+    .feature-drinks {
+        grid-template-columns: repeat(2, 1fr);
+    }
+}
+
+.drink-card {
+    background: #111; /* dark grey card background */
+    border: 1px solid #333; /* subtle border */
+    border-radius: 14px;
+    padding: 1rem;
+    text-align: center;
+    box-shadow: 0 10px 25px -15px rgba(255, 255, 255, 0.15); /* light subtle shadow */
+}
+
+.drink-card h3 {
+    color: var(--brand); /* gold accent */
+    margin-bottom: 0.5rem;
+}
+
+.drink-card p {
+    font-size: 0.95rem;
+    color: #ccc; /* light grey text for readability */
+}
+
+/* Menu sections */
+.menu-section {
+    margin-block: 2rem;
+}
+
+.menu-section h2 {
+    font-size: 1.4rem;
+    color: var(--brand); /* gold headings */
+    border-bottom: 1px solid #333;
+    padding-bottom: 0.4rem;
+    margin-bottom: 0.8rem;
+}
+
+/* Drinks list */
+.drink-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.6rem 1rem;
+}
+
+.drink-list li {
+    color: #fff; /* white list items */
+    font-size: 0.95rem;
+}
+
+/* Ask the Bartender */
+.ask-bartender {
+    margin-top: 1.2rem;
+    text-align: center;
+}
+
+.ask-bartender img {
+    max-width: 100px;
+    display: block;
+    margin: 0 auto;
+    filter: brightness(1.15); /* make sticker pop on dark bg */
+}
+
+.ask-bartender p {
+    font-size: 0.9rem;
+    color: #bbb; /* lighter grey text */
+    margin-top: 0.4rem;
+}
+
+/* Loader */
+.loader {
+    position: fixed;
+    inset: 0;
+    z-index: 9999;
+    display: grid;
+    place-items: center;
+    gap: 1rem;
+    background: #000;
+}
+
+.loader img {
+    width: min(260px, 65vw);
+    height: auto;
+    display: block;
+    filter: drop-shadow(0 10px 24px rgba(0, 0, 0, .55));
+}
+
+.loader__label {
+    color: #ddd;
+    font-weight: 600;
+    letter-spacing: .4px;
+    animation: pulse 1.4s ease-in-out infinite;
+}
+
+@keyframes pulse {
+    0%, 100% { opacity: .55 }
+    50% { opacity: 1 }
+}

@@ -87,9 +87,18 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
     const slides = Array.from(track.children);
     let index = 0;
     const update = () => {
-      const width = slides[0].getBoundingClientRect().width + 10; // card + gap
-      track.style.transform = `translate3d(calc(-${index} * ${width}px), 0, 0)`;
-      dotsWrap.querySelectorAll('.ig-dot').forEach((d, i) => d.setAttribute('aria-current', i === index ? 'true' : 'false'));
+      const slideWidth = slides[0].getBoundingClientRect().width;
+      const sliderWidth = document.getElementById('ig-slider').getBoundingClientRect().width;
+      const gap = 10; // match your CSS gap value in .ig-track
+
+      // Calculate offset to center the current slide
+      const offset = (sliderWidth / 2) - (slideWidth / 2) - (index * (slideWidth + gap));
+
+      track.style.transform = `translate3d(${offset}px, 0, 0)`;
+
+      dotsWrap.querySelectorAll('.ig-dot').forEach((d, i) =>
+        d.setAttribute('aria-current', i === index ? 'true' : 'false')
+      );
     };
 
     // Dots
@@ -110,12 +119,12 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
     const slider = document.getElementById('ig-slider');
     const start = (x) => { dragging = true; startX = x; deltaX = 0; };
     const move = (x) => { if (!dragging) return; deltaX = x - startX; track.style.transform = `translate3d(calc(-${index} * 100% + ${deltaX}px),0,0)`; };
-    const end  = () => {
+    const end = () => {
       if (!dragging) return;
       dragging = false;
       const threshold = 40;
       if (deltaX < -threshold && index < slides.length - 1) index++;
-      if (deltaX >  threshold && index > 0) index--;
+      if (deltaX > threshold && index > 0) index--;
       update();
     };
 
@@ -152,7 +161,7 @@ contactModal.querySelector('.contact-overlay').addEventListener('click', () => c
 // --- Form submission ---
 const bookingNotice = document.getElementById('bookingNotice');
 
-document.getElementById('bookingForm').addEventListener('submit', async function(e) {
+document.getElementById('bookingForm').addEventListener('submit', async function (e) {
   e.preventDefault();
 
   const form = e.target;
