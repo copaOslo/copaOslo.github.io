@@ -36,15 +36,12 @@
     <img class="hero__banner" src="img/copa_banner.png" alt="Copa Bartenders banner">
   </header>
 
-  <div id="bookingNotice" class="booking-notice" hidden>
-    Din booking er sendt! Vi vil kontakte deg så snart vi kan.
-  </div>
   <div id="contactModal" class="contact-modal" hidden>
     <div class="contact-overlay"></div>
     <div class="contact-content">
       <button id="closeContact" class="contact-close" aria-label="Lukk">×</button>
       <h2>Book Copa Bartenders</h2>
-      <form id="bookingForm">
+      <form id="bookingForm" aria-live="polite" aria-busy="false">
         <label>
           Navn *
           <input type="text" name="name" required>
@@ -70,7 +67,12 @@
           Tilleggsinformasjon (optional)
           <textarea name="moreinfo" rows="4"></textarea>
         </label>
-        <button type="submit" class="btn btn--primary">Send booking</button>
+        <!-- Submit -->
+        <button id="submitBtn" type="submit" class="btn btn--primary">
+          Send forespørsel
+        </button>
+        <!-- Loader / Status message -->
+        <div id="formStatus" class="form-status" hidden>Sender booking …</div>
       </form>
     </div>
   </div>

@@ -1,40 +1,34 @@
 /* ---------- Loader handling ----------
-   Show the loader until the martini GIF finishes.
-   Since GIFs don't emit "ended" events, we use a configurable duration.
-   Set the GIF's total length (ms) in the <img data-duration-ms="..."> attribute.
+   Viser loader til martini-GIF er ferdig.
+   Lengden på GIF settes via data-duration-ms på <img>.
 -------------------------------------- */
-
 (function () {
   const loader = document.getElementById('loader');
   const gif = document.getElementById('loaderGif');
 
   const duration = Number(gif?.dataset?.durationMs || 3500); // fallback 3.5s
 
-  // In case the GIF needs to be reloaded (e.g., cache), force restart:
   gif.addEventListener('load', () => {
     setTimeout(() => {
       loader.style.opacity = '0';
       loader.style.pointerEvents = 'none';
       loader.setAttribute('aria-busy', 'false');
-      setTimeout(() => loader.remove(), 450); // allow fade-out
+      setTimeout(() => loader.remove(), 450); // fade-out
     }, duration);
   });
 
-  // Trigger load if already cached
+  // Hvis GIF allerede er cached
   if (gif.complete) gif.dispatchEvent(new Event('load'));
 })();
 
-/* ---------- Year in footer ---------- */
+/* ---------- Footer Year ---------- */
 document.getElementById('year').textContent = new Date().getFullYear();
 
-/* ------------ Instagram Slider (vanilla) ------------- */
-/* 1) Fill these with your values (from Basic Display API setup) */
+/* ---------- Instagram Slider ---------- */
 const IG_USER_ID = '17841473184066916';
 const IG_ACCESS_TOKEN = 'IGAAWAgNh9xbdBZAE1jYVN4dzBPbWhJMjNJa2VuNXlibkhxYkVfcWkyejlKeWlOUFA4OF9qeFVLRTV1VjBDUXdkeFRKNUpOaVM0Nnc2ekV6ZAmNIWUpweFZATMnY2X2MxejZAMWUw0MTlmR0k4UDE1WjhKdFdWNlNiRzRnazVtRGJXSQZDZD';
-/* How many posts to load */
 const IG_LIMIT = 12;
 
-/* 2) Build request */
 const IG_FIELDS = 'id,caption,media_type,media_url,permalink,thumbnail_url,timestamp';
 const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG_FIELDS}&access_token=${IG_ACCESS_TOKEN}&limit=${IG_LIMIT}`;
 
@@ -43,13 +37,8 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
   const dotsWrap = document.getElementById('ig-dots');
   const prevBtn = document.getElementById('ig-prev');
   const nextBtn = document.getElementById('ig-next');
-  const errorBox = document.getElementById('ig-error');
 
   try {
-    if (!IG_USER_ID || IG_USER_ID.startsWith('YOUR_') || !IG_ACCESS_TOKEN || IG_ACCESS_TOKEN.startsWith('YOUR_')) {
-      throw new Error('Not configured');
-    }
-
     const res = await fetch(IG_ENDPOINT);
     if (!res.ok) throw new Error('Network');
     const data = await res.json();
@@ -57,9 +46,12 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
 
     if (!items.length) throw new Error('Empty');
 
-    // Create slides
+    // Bygg slides
     items.forEach(item => {
-      const mediaUrl = item.media_type === 'VIDEO' ? (item.thumbnail_url || item.media_url) : item.media_url;
+      const mediaUrl = item.media_type === 'VIDEO'
+        ? (item.thumbnail_url || item.media_url)
+        : item.media_url;
+
       const card = document.createElement('div');
       card.className = 'ig-card';
 
@@ -67,33 +59,26 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
       link.href = item.permalink;
       link.target = '_blank';
       link.rel = 'noopener';
-      card.appendChild(link);
 
-      if (item.media_type === 'VIDEO') {
-        const img = document.createElement('img');
-        img.src = mediaUrl;
-        img.alt = (item.caption || 'Instagram video');
-        card.appendChild(img);
-      } else {
-        const img = document.createElement('img');
-        img.src = mediaUrl;
-        img.alt = (item.caption || 'Instagram-bilde');
-        card.appendChild(img);
-      }
+      const img = document.createElement('img');
+      img.src = mediaUrl;
+      img.alt = item.caption || (item.media_type === 'VIDEO' ? 'Instagram video' : 'Instagram-bilde');
+
+      link.appendChild(img);
+      card.appendChild(link);
       track.appendChild(card);
     });
 
-    // Slider logic
+    // Slider
     const slides = Array.from(track.children);
     let index = 0;
+
     const update = () => {
       const slideWidth = slides[0].getBoundingClientRect().width;
       const sliderWidth = document.getElementById('ig-slider').getBoundingClientRect().width;
-      const gap = 10; // match your CSS gap value in .ig-track
+      const gap = 10;
 
-      // Calculate offset to center the current slide
       const offset = (sliderWidth / 2) - (slideWidth / 2) - (index * (slideWidth + gap));
-
       track.style.transform = `translate3d(${offset}px, 0, 0)`;
 
       dotsWrap.querySelectorAll('.ig-dot').forEach((d, i) =>
@@ -101,7 +86,7 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
       );
     };
 
-    // Dots
+    // Lag dots
     slides.forEach((_, i) => {
       const dot = document.createElement('button');
       dot.type = 'button';
@@ -110,11 +95,11 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
       dotsWrap.appendChild(dot);
     });
 
-    // Nav
+    // Navigasjon
     prevBtn.addEventListener('click', () => { index = Math.max(0, index - 1); update(); });
     nextBtn.addEventListener('click', () => { index = Math.min(slides.length - 1, index + 1); update(); });
 
-    // Touch / drag
+    // Touch/drag
     let startX = 0, deltaX = 0, dragging = false;
     const slider = document.getElementById('ig-slider');
     const start = (x) => { dragging = true; startX = x; deltaX = 0; };
@@ -134,11 +119,11 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
     slider.addEventListener('pointercancel', end);
     window.addEventListener('resize', update);
 
-    // Autoplay (optional)
+    // Autoplay
     let autoplay = setInterval(() => { index = (index + 1) % slides.length; update(); }, 5000);
     slider.addEventListener('pointerdown', () => clearInterval(autoplay));
 
-    // Initial
+    // Init
     update();
   } catch (e) {
     document.getElementById('ig-error').hidden = false;
@@ -146,7 +131,7 @@ const IG_ENDPOINT = `https://graph.instagram.com/${IG_USER_ID}/media?fields=${IG
   }
 })();
 
-// --- Contact Modal Logic ---
+/* ---------- Contact Modal ---------- */
 const contactBtn = document.getElementById('contactBtn');
 const contactModal = document.getElementById('contactModal');
 const closeContact = document.getElementById('closeContact');
@@ -159,7 +144,7 @@ closeContact.addEventListener('click', () => contactModal.hidden = true);
 contactModal.querySelector('.contact-overlay').addEventListener('click', () => contactModal.hidden = true);
 
 // --- Form submission ---
-const bookingNotice = document.getElementById('bookingNotice');
+const formStatus = document.getElementById('formStatus');
 
 document.getElementById('bookingForm').addEventListener('submit', async function (e) {
   e.preventDefault();
@@ -167,24 +152,40 @@ document.getElementById('bookingForm').addEventListener('submit', async function
   const form = e.target;
   const formData = new FormData(form);
 
-  const res = await fetch("https://formspree.io/f/xrbljqlk", {
-    method: "POST",
-    body: formData,
-    headers: { "Accept": "application/json" }
-  });
+  // Show loader state
+  formStatus.hidden = false;
+  formStatus.textContent = "Sender booking …";
+  formStatus.className = "form-status loading";
 
-  if (res.ok) {
-    form.reset();
-    contactModal.hidden = true;
+  try {
+    const res = await fetch("https://formspree.io/f/xrbljqlk", {
+      method: "POST",
+      body: formData,
+      headers: { "Accept": "application/json" }
+    });
 
-    // Show notice
-    bookingNotice.hidden = false;
-    // Hide notice after animation completes (4s in CSS)
-    setTimeout(() => {
-      bookingNotice.hidden = true;
-    }, 4000);
+    if (res.ok) {
+      form.reset();
+      formStatus.textContent = "Din booking er sendt! <br> Vi vil kontakte deg så snart vi kan.";
+      formStatus.className = "form-status success";
 
-  } else {
-    alert("Oops! Noe gikk galt. Prøv igjen.");
+      // Hide modal after short delay
+      // Hide modal after short delay
+      setTimeout(() => {
+        contactModal.classList.add("is-hiding");
+
+        // Wait for CSS transition to finish, then fully hide + reset
+        setTimeout(() => {
+          contactModal.hidden = true;
+          contactModal.classList.remove("is-hiding");
+          formStatus.hidden = true;
+        }, 400); // matches the CSS transition time
+      }, 3000);
+    } else {
+      throw new Error("Network");
+    }
+  } catch (err) {
+    formStatus.textContent = "Oops! Noe gikk galt. Prøv igjen.";
+    formStatus.className = "form-status error";
   }
 });
