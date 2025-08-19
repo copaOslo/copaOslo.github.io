@@ -154,7 +154,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 
   // Show loader state
   formStatus.hidden = false;
-  formStatus.textContent = "Sender booking …";
+  formStatus.textContent = "Sending booking …";
   formStatus.className = "form-status loading";
 
   try {
@@ -166,7 +166,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
 
     if (res.ok) {
       form.reset();
-      formStatus.textContent = "Din booking er sendt! <br> Vi vil kontakte deg så snart vi kan.";
+      formStatus.textContent = "Your booking has been sent! <br> We’ll reach out to you shortly.";
       formStatus.className = "form-status success";
 
       // Hide modal after short delay
@@ -185,7 +185,7 @@ document.getElementById('bookingForm').addEventListener('submit', async function
       throw new Error("Network");
     }
   } catch (err) {
-    formStatus.textContent = "Oops! Noe gikk galt. Prøv igjen.";
+    formStatus.textContent = "Oops! Something went wrong. Please try again.";
     formStatus.className = "form-status error";
   }
 });

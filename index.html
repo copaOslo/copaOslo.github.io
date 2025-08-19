@@ -5,7 +5,10 @@
   <meta charset="utf-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Copa Bartenders</title>
-  <meta name="description" content="Copa Bartenders – Vi lager drinkene, dere lager minnene." />
+  <meta name="description" content="Copa Bartenders – We mix the drinks, you make the memories." />
+  <link rel="icon" href="./favicon/favicon.ico" type="image/x-icon">
+  <link rel="icon" href="/favicon/favicon-16x16.png" type="image/png">
+  <link rel="apple-touch-icon" href="/favicon/apple-touch-icon.png">
   <link rel="preload" href="img/copa_logo.png" as="image">
   <link rel="preload" href="img/copa_banner.png" as="image">
   <link rel="stylesheet" href="style.css" />
@@ -17,19 +20,19 @@
   <!-- LOADER (shows until GIF finishes) -->
   <div id="loader" class="loader" aria-live="polite" aria-busy="true">
     <img id="loaderGif" src="img/loading.gif" alt="Fyller martini ..." data-duration-ms="3500" />
-    <p class="loader__label">Blander magien …</p>
+    <p class="loader__label">Mixing the magic …</p>
   </div>
 
   <!-- HEADER / HERO -->
   <header class="hero">
     <div class="hero__content container">
       <img class="hero__logo" src="img/copa_logo.png" alt="Copa Bartenders logo">
-      <h1 class="hero__tagline">VI LAGER DRINKENE, <span>DERE LAGER MINNENE</span></h1>
+      <h1 class="hero__tagline">WE MIX THE DRINKS, <span>YOUR MAKE THE MEMORIES</span></h1>
 
       <div class="hero__cta">
-        <a id="contactBtn" class="btn btn--primary" href="#">Send oss en forespørsel</a>
+        <a id="contactBtn" class="btn btn--primary" href="#">Send us an inquiry</a>
         <a class="btn btn--ghost" href="https://www.instagram.com/copabartenders_oslo/" target="_blank"
-          rel="noopener">Følg oss på Instagram</a>
+          rel="noopener">Follow us on Instagram</a>
       </div>
     </div>
 
@@ -43,36 +46,36 @@
       <h2>Book Copa Bartenders</h2>
       <form id="bookingForm" aria-live="polite" aria-busy="false">
         <label>
-          Navn *
+          Name *
           <input type="text" name="name" required>
         </label>
         <label>
-          Epost *
+          E-mail *
           <input type="email" name="email" required>
         </label>
         <label>
-          Type drinker *
+          Type of drink *
           <select name="drinks" required>
-            <option value="">Velg type</option>
+            <option value="">Choose type of drink</option>
             <option value="Cocktail">Cocktail</option>
             <option value="Mocktail">Mocktail</option>
-            <option value="Both">Begge</option>
+            <option value="Both">Both</option>
           </select>
         </label>
         <label>
-          Antall gjester *
+          Guest amount *
           <input type="number" name="guests" min="1" required>
         </label>
         <label>
-          Tilleggsinformasjon (optional)
+          Additional information (optional)
           <textarea name="moreinfo" rows="4"></textarea>
         </label>
         <!-- Submit -->
         <button id="submitBtn" type="submit" class="btn btn--primary">
-          Send forespørsel
+          Send the inquiry
         </button>
         <!-- Loader / Status message -->
-        <div id="formStatus" class="form-status" hidden>Sender booking …</div>
+        <div id="formStatus" class="form-status" hidden>Sending booking …</div>
       </form>
     </div>
   </div>
@@ -87,7 +90,7 @@
     </div>
 
     <div id="ig-error" class="ig-fallback" hidden>
-      Kunne ikke laste feed akkurat nå. Se oss på
+      Couldn’t load the feed right now. See us on
       <a class="link" target="_blank" rel="noopener" href="https://www.instagram.com/copabartenders_oslo/">
         Instagram
       </a>.
