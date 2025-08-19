@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="no">
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Copa Bartenders – Menu</title>
+    <meta name="description" content="Bar menu – Copa Bartenders" />
+    <link rel="icon" href="../../favicon/favicon.ico" type="image/x-icon">
+    <link rel="icon" href="../../favicon/favicon-16x16.png" type="image/png">
+    <link rel="apple-touch-icon" href="../../favicon/apple-touch-icon.png">
+    <link rel="stylesheet" href="../../style.css" /> <!-- Your global site styles -->
+    <link rel="stylesheet" href="menu.css" /> <!-- Page-specific styles -->
+</head>
+
+<body>
+    <header class="hero">
+        <!-- LOADER -->
+        <div id="loader" class="loader" aria-live="polite" aria-busy="true">
+            <img id="loaderGif" src="../../img/cocktail_load.gif" alt="Fyller martini ..." data-duration-ms="2300" />
+            <p class="loader__label">Mixing the magic …</p>
+        </div>
+        <div class="container">
+            <a href="../../index.html" class="link" style="display:inline-block;margin-bottom:1rem;">← Back to the main
+                page</a>
+            <h1 class="menu-title">Bar Menu</h1>
+        </div>
+    </header>
+
+    <main class="container">
+        <!-- Featured Drinks -->
+        <section class="feature-drinks">
+            <div class="drink-card">
+                <img id="hisDrink" class="drink-image" src="img/jack_ginger.png" />
+                <h3>His Signature</h3>
+                <p>Wiskhey based drink with ginger and lime.</p>
+            </div>
+            <div class="drink-card">
+                <img id="hersDrink" class="drink-image-hers" src="img/lychee_mock.png" />
+                <h3>Hers Signature</h3>
+                <p>Refreshing mocktail with a lychee base.</p>
+            </div>
+        </section>
+
+        <!-- Spirits -->
+        <section class="menu-section">
+            <h2>Spirits</h2>
+            <div class="drinks-section">
+                <ul class="drink-list">
+                    <li>Absolut Vodka</li>
+                    <li>Jack Daniel's Whiskey</li>
+                    <li>Bacardi Carta Blanca</li>
+                    <li>Gordon's Special London Dry Gin</li>
+                    <li>Tequila Rose</li>
+                </ul>
+                <div class="ask-bartender">
+                    <img src="img/ask_bartender.png" alt="Ask the Bartender">
+                    <p>Ask the bartender about the evenings choices!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Mocktails -->
+        <section class="menu-section">
+            <h2>Mocktails</h2>
+            <div class="drinks-section">
+                <ul class="drink-list">
+                    <li>Mango syrup</li>
+                </ul>
+                <div class="ask-bartender">
+                    <img src="img/ask_bartender.png" alt="Ask the Bartender">
+                    <p>Ask the bartender about the evenings choices!</p>
+                </div>
+            </div>
+        </section>
+
+        <!-- Wine & Beers -->
+        <section class="menu-section">
+            <h2>Wine & Beers</h2>
+            <div class="drinks-section">
+                <ul class="drink-list">
+                    <li>JP. Chenet Cabernet-Syrah (red wine)</li>
+                    <li>Matua Sauvignon Blanc (white wine)</li>
+                    <li>Kronenbourg 1664 Blanc</li>
+                </ul>
+                <div class="drinks-image">
+                    <img src="img/wine_beer.png" alt="Wine and Beer">
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <footer class="footer">
+        <div class="container footer__inner">
+            <p>© <span id="year"></span> Copa Bartenders</p>
+        </div>
+    </footer>
+
+    <script src="menu.js"></script>
+</body>
+
+</html>
