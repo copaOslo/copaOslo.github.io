@@ -9,7 +9,7 @@
     <link rel="icon" href="../../favicon/favicon.ico" type="image/x-icon">
     <link rel="icon" href="../../favicon/favicon-16x16.png" type="image/png">
     <link rel="apple-touch-icon" href="../../favicon/apple-touch-icon.png">
-    <link rel="stylesheet" href="../../style.css" /> <!-- Your global site styles -->
+    <link rel="stylesheet" href="../../style.css" /> <!-- Global styles -->
     <link rel="stylesheet" href="menu.css" /> <!-- Page-specific styles -->
 </head>
 
@@ -20,10 +20,13 @@
             <img id="loaderGif" src="../../img/cocktail_load.gif" alt="Fyller martini ..." data-duration-ms="2300" />
             <p class="loader__label">Mixing the magic …</p>
         </div>
-        <div class="container">
+
+        <div class="container header-bar">
             <a href="../../index.html" class="link" style="display:inline-block;margin-bottom:1rem;">← Back to the main
                 page</a>
             <h1 class="menu-title">Bar Menu</h1>
+            <!-- Logo -->
+            <img src="img/T_B_logo.png" alt="Logo" class="top-logo">
         </div>
     </header>
 
@@ -33,18 +36,19 @@
             <div class="drink-card">
                 <img id="hisDrink" class="drink-image" src="img/jack_ginger.png" />
                 <h3>His Signature</h3>
-                <p>Wiskhey based drink with ginger and lime.</p>
+                <p>Whiskey based drink with ginger and lime.</p>
             </div>
             <div class="drink-card">
-                <img id="hersDrink" class="drink-image-hers" src="img/lychee_mock.png" />
+                <img id="hersDrink" class="drink-image-hers" src="img/lychee_mocktail.png" />
                 <h3>Hers Signature</h3>
                 <p>Refreshing mocktail with a lychee base.</p>
             </div>
         </section>
 
-        <!-- Spirits -->
+        <!-- Cocktails -->
         <section class="menu-section">
-            <h2>Spirits</h2>
+            <h2 class="cocktail-section">Cocktails</h2>
+            <p class="section-subtitle">(based on these spirits)</p>
             <div class="drinks-section">
                 <ul class="drink-list">
                     <li>Absolut Vodka</li>
@@ -53,9 +57,10 @@
                     <li>Gordon's Special London Dry Gin</li>
                     <li>Tequila Rose</li>
                 </ul>
-                <div class="ask-bartender">
-                    <img src="img/ask_bartender.png" alt="Ask the Bartender">
-                    <p>Ask the bartender about the evenings choices!</p>
+                <div class="drinks-image stamp-wrap">
+                    <img src="img/cocktails.png" alt="Cocktails">
+                    <img class="stamp" src="img/ask_bartender.png" alt="Ask the Bartender">
+                    <p class="drink-caption">Ask the bartender about the evenings choices!</p>
                 </div>
             </div>
         </section>
@@ -65,11 +70,16 @@
             <h2>Mocktails</h2>
             <div class="drinks-section">
                 <ul class="drink-list">
-                    <li>Mango syrup</li>
+                    <li>Emerald Breeze</li>
+                    <li>Sapphire Mist</li>
+                    <li>Golden Ray</li>
+                    <li>Autumn Flame</li>
+                    <li>Crimson Velvet</li>
                 </ul>
-                <div class="ask-bartender">
-                    <img src="img/ask_bartender.png" alt="Ask the Bartender">
-                    <p>Ask the bartender about the evenings choices!</p>
+                <div class="drinks-image stamp-wrap">
+                    <img src="img/mocktails.png" alt="Mocktails" class="mocktails">
+                    <img class="stamp" src="img/ask_bartender.png" alt="Ask the Bartender">
+                    <p class="drink-caption">Ask the bartender about the evenings choices!</p>
                 </div>
             </div>
         </section>
