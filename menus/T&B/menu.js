@@ -20,9 +20,8 @@
 // Footer year update
 document.getElementById('year').textContent = new Date().getFullYear();
 
-// Data -> add/remove drinks freely
 const cocktails = [
-  { name: "Nordic Chill", spirit: "Absolut Vodka" },
+  { name: "Blue lagoon", spirit: "Absolut Vodka" },
   { name: "Green Byte", spirit: "Absolut Vodka" },
   { name: "Golden Hour", spirit: "Absolut Vodka" },
   { name: "Dark Syntax", spirit: "Jack Daniel's Whiskey" },
@@ -31,14 +30,12 @@ const cocktails = [
   { name: "Gordon’s Garden", spirit: "Special London Dry Gin" }
 ];
 
-// Group by spirit and render
 (function renderCocktailGroups() {
   const groups = cocktails.reduce((acc, d) => {
     (acc[d.spirit] ||= []).push(d);
     return acc;
   }, {});
 
-  // Optional: order of sections
   const order = ["Vodka", "Whiskey", "Rum", "Gin", "Tequila"];
   const spirits = Object.keys(groups).sort(
     (a, b) => order.indexOf(a) - order.indexOf(b)
@@ -59,11 +56,8 @@ const cocktails = [
     `).join("");
 })();
 
-// Data for wines & shots
 const winesAndShots = [
-  // Red
   { name: "JP. Chenet Cabernet–Syrah", type: "Red wine" },
-  // White
   { name: "Matua Sauvignon Blanc", type: "White wine" }
 ];
 
@@ -76,7 +70,6 @@ const shot = ["Tequila Rose"];
     return m;
   }, {});
 
-  // Display order
   const order = ["Red wine", "White wine"];
 
   const html = order
@@ -92,52 +85,46 @@ const shot = ["Tequila Rose"];
 
   const beerHtml = beer.length
     ? `<div class="spirit"><h3 class="spirit-title">Beer</h3>
-           <ul class="spirit-list">${beer.map(b => `<li>${b}</li>`).join("")}</ul>
-         </div>`
+          <ul class="spirit-list">${beer.map(b => `<li>${b}</li>`).join("")}</ul>
+        </div>`
     : "";
 
   const shotHtml = shot.length
     ? `<div class="spirit"><h3 class="spirit-title">Shots</h3>
-           <ul class="spirit-list">${shot.map(b => `<li>${b}</li>`).join("")}</ul>
-         </div>`
+        <ul class="spirit-list">${shot.map(b => `<li>${b}</li>`).join("")}</ul>
+      </div>`
     : "";
 
   document.getElementById("wine-groups").innerHTML = html + beerHtml + shotHtml;
 })();
 
-// Mocktail data: tweak names/notes as you like
 const mocktails = [
   { name: "Golden Ray", group: "Tropical & Bright" },
   { name: "Solar Glow", group: "Tropical & Bright" },
   { name: "Blush Serenade", group: "Floral & Sweet" },
-  { name: "Velvet Bloom", group: "Floral & Sweet" },
-  { name: "Crimson Whisper", group: "Floral & Sweet" },
+  { name: "Pink Bloom", group: "Floral & Sweet" },
   { name: "Emerald Spirit", group: "Vibrant & Fresh" },
-  { name: "Azure Mist", group: "Vibrant & Fresh" }
+  { name: "Blue Mist", group: "Vibrant & Fresh" }
 ];
 
 (function renderMocktailGroups() {
-  // Group by category
   const byGroup = mocktails.reduce((acc, d) => {
     (acc[d.group] ||= []).push(d);
     return acc;
   }, {});
 
-  // Display order
   const order = ["Tropical & Bright", "Floral & Sweet", "Vibrant & Fresh"];
 
   const html = order
     .filter(g => byGroup[g]?.length)
     .map(g => `
-  <div class="spirit">
-    <h3 class="spirit-title">${g}</h3>
-    <ul class="spirit-list">
-      ${byGroup[g].map(d => `
-              <li>${d.name}${d.note ? ` <span class="spirit">– ${d.note}</span>` : ""}</li>
-            `).join("")}
-    </ul>
-  </div>
-  `).join("");
+      <div class="spirit">
+        <h3 class="spirit-title">${g}</h3>
+        <ul class="spirit-list">
+          ${byGroup[g].map(d => `<li>${d.name}${d.note ? ` <span class="spirit">– ${d.note}</span>` : ""}</li>`).join("")}
+        </ul>
+      </div>
+    `).join("");
 
   document.getElementById("mocktail-groups").innerHTML = html;
 })();

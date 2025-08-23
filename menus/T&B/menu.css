@@ -167,7 +167,11 @@ body {
 
 @media (max-width: 700px) {
     .mocktails {
-        scale: 0.85;
+        scale: 0.8;
+    }
+
+    .wine_beer {
+        scale: 0.85
     }
 }
 
@@ -286,7 +290,7 @@ body {
     }
 
     .drinks-image img {
-        max-height: clamp(260px, 34vh, 420px);
+        max-height: clamp(260px, 33vh, 420px);
     }
 
     .stamp-wrap .stamp {
